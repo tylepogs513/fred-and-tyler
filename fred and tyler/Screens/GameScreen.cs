@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using GameSystemServices;
 
 namespace fred_and_tyler
 {
@@ -19,8 +13,9 @@ namespace fred_and_tyler
         //player2 button control keys - DO NOT CHANGE
         Boolean aDown, sDown, dDown, wDown, cDown, vDown, xDown, zDown;
 
+
         //TODO create your global game variables here
-        int heroX, heroY, heroSize, heroSpeed, gravitySpeed;
+        int heroX, heroY, heroSize, heroSpeed, bottom;
         SolidBrush heroBrush = new SolidBrush(Color.Red);
 
         public GameScreen()
@@ -35,9 +30,10 @@ namespace fred_and_tyler
             // each time you restart your game to reset all values.
             heroX = 100;
             heroY = 100;
-            heroSize = 10;
-            heroSpeed = 1;
-            gravitySpeed = 10;
+            heroSize = 20;
+            heroSpeed = 20;
+            bottom = 280;
+
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -46,7 +42,7 @@ namespace fred_and_tyler
             // on pause screen the program will either continue or exit to main menu
             if (e.KeyCode == Keys.Escape && gameTimer.Enabled)
             {
-                gameTimer.Enabled = false;
+                gameTimer.Enabled = true;
                 rightArrowDown = leftArrowDown = upArrowDown = downArrowDown = false;
 
                 DialogResult result = PauseForm.Show();
@@ -111,6 +107,20 @@ namespace fred_and_tyler
             }
         }
 
+        private void gravityTimer_Tick(object sender, EventArgs e)
+        {
+            Graphics g = this.CreateGraphics();
+            SolidBrush blueBrush = new SolidBrush(Color.Blue);
+            g.FillRectangle(blueBrush, 0, 299, 320, 10);
+            int counter = 0;
+
+            if (counter <= 1200 || heroY >= bottom)
+            {
+                counter++;
+                heroY = heroY + 20;
+            }
+        }
+
         /// <summary>
         /// This is the Game Engine and repeats on each interval of the timer. For example
         /// if the interval is set to 16 then it will run each 16ms or approx. 50 times
@@ -118,70 +128,57 @@ namespace fred_and_tyler
         /// </summary>
         private void gameTimer_Tick(object sender, EventArgs e)
         {
+            Rectangle bottomBlock = new Rectangle(0, 299, 320, 10);
+            Rectangle playBlock = new Rectangle(heroX, heroY, heroSize, heroSize);
             Graphics g = this.CreateGraphics();
             SolidBrush blueBrush = new SolidBrush(Color.Blue);
             g.FillRectangle(blueBrush, 0, 299, 320, 10);
-            if (heroY <= 260 && heroY >= 100)
-            {
-                g.FillRectangle(blueBrush, 0, 299, 320, 10);
-                heroY = heroY + gravitySpeed;
-                Thread.Sleep(1000);
-            }
-            //TODO move main character 
+            ////TODO move main character 
+
             if (leftArrowDown == true)
             {
-                heroX = heroX - gravitySpeed;
+                heroX = heroX - heroSpeed;
                 Thread.Sleep(100);
-
-                if (heroY <= 260 && heroY >= 100)
+                if (heroX <= 0)
                 {
-                    heroY = heroY + gravitySpeed;
-                    Thread.Sleep(1000);
+                    heroX = 0;
                 }
+
             }
             if (rightArrowDown == true)
             {
-                heroX = heroX + gravitySpeed;
+                heroX = heroX + heroSpeed;
                 Thread.Sleep(100);
-
-                if (heroY <= 260 && heroY >= 100)
+                if (heroX >= 280)
                 {
-                    heroY = heroY + gravitySpeed;
-                    Thread.Sleep(1000);
+                    heroX = 280;
                 }
             }
             if (downArrowDown == true)
             {
-                heroY = heroY + gravitySpeed;
+                heroY = bottom;
                 Thread.Sleep(100);
-                if (heroY <= 260 && heroY >= 100)
+                if (heroY <= 260)
                 {
-                    heroY = heroY + gravitySpeed;
+                    heroY = heroY + heroSpeed;
                     Thread.Sleep(1000);
                 }
             }
 
-            if (heroY >= 300)
+            while (bottomBlock.IntersectsWith(playBlock))
             {
-                heroY = 300;
                 if (leftArrowDown == true)
                 {
-                    heroX = heroX - gravitySpeed;
-                    Thread.Sleep(100);
-                    if (heroX <= 0)
-                    {
-                        heroX = 0;
-                    }
+                    heroSpeed = 0;
                 }
                 if (rightArrowDown == true)
                 {
-                    heroX = heroX + gravitySpeed;
-                    Thread.Sleep(100);
-                    if (heroX >= 290)
-                    {
-                        heroX = 290;
-                    }
+                    heroSpeed = 0;
                 }
+            }
+            if (heroY >= bottom)
+            {
+                heroY = bottom;
             }
 
             //TODO collisions checks 

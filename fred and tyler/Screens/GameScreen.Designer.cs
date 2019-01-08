@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
+            this.gravityTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // gameTimer
@@ -37,6 +38,12 @@
             this.gameTimer.Enabled = true;
             this.gameTimer.Interval = 20;
             this.gameTimer.Tick += new System.EventHandler(this.gameTimer_Tick);
+            // 
+            // gravityTimer
+            // 
+            this.gravityTimer.Enabled = true;
+            this.gravityTimer.Interval = 1000;
+            this.gravityTimer.Tick += new System.EventHandler(this.gravityTimer_Tick);
             // 
             // GameScreen
             // 
@@ -56,5 +63,6 @@
         #endregion
 
         private System.Windows.Forms.Timer gameTimer;
+        private System.Windows.Forms.Timer gravityTimer;
     }
 }
