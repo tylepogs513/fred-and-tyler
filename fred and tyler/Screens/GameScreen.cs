@@ -13,9 +13,14 @@ namespace fred_and_tyler
         //player2 button control keys - DO NOT CHANGE
         Boolean aDown, sDown, dDown, wDown, cDown, vDown, xDown, zDown;
 
+        private void GameScreen_Load(object sender, EventArgs e)
+        {
+
+        }
+
 
         //TODO create your global game variables here
-        int heroX, heroY, heroSize, heroSpeed, bottom;
+        int heroX, heroY, heroSize, heroSpeed, bottom, rotationCount;
         SolidBrush heroBrush = new SolidBrush(Color.Red);
 
         public GameScreen()
@@ -33,7 +38,7 @@ namespace fred_and_tyler
             heroSize = 20;
             heroSpeed = 20;
             bottom = 280;
-
+            rotationCount = 0;
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -114,10 +119,18 @@ namespace fred_and_tyler
             g.FillRectangle(blueBrush, 0, 299, 320, 10);
             int counter = 0;
 
-            if (counter <= 1200 || heroY >= bottom)
+            if (counter <= 10 || heroY <= bottom)
             {
                 counter++;
-                heroY = heroY + 20;
+                heroY = heroY + heroSize;
+            }
+
+            if (heroY >= bottom)
+            {
+                heroY = bottom;
+                g.FillRectangle(heroBrush, heroX, heroY, heroSize, heroSize);
+                heroX = 100;
+                heroY = 100;
             }
         }
 
@@ -128,7 +141,7 @@ namespace fred_and_tyler
         /// </summary>
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-            Rectangle bottomBlock = new Rectangle(0, 299, 320, 10);
+            Rectangle bottomBlock = new Rectangle(0, 300, 320, 1);
             Rectangle playBlock = new Rectangle(heroX, heroY, heroSize, heroSize);
             Graphics g = this.CreateGraphics();
             SolidBrush blueBrush = new SolidBrush(Color.Blue);
@@ -143,7 +156,6 @@ namespace fred_and_tyler
                 {
                     heroX = 0;
                 }
-
             }
             if (rightArrowDown == true)
             {
@@ -158,13 +170,17 @@ namespace fred_and_tyler
             {
                 heroY = bottom;
                 Thread.Sleep(100);
-                if (heroY <= 260)
-                {
-                    heroY = heroY + heroSpeed;
-                    Thread.Sleep(1000);
-                }
+            }
+                        
+            if (heroY >= bottom)
+            {
+                heroY = bottom;
+                g.FillRectangle(heroBrush, heroX, heroY, heroSize, heroSize);
+                heroX = 100;
+                heroY = 100;
             }
 
+            //TODO collisions checks 
             while (bottomBlock.IntersectsWith(playBlock))
             {
                 if (leftArrowDown == true)
@@ -175,17 +191,62 @@ namespace fred_and_tyler
                 {
                     heroSpeed = 0;
                 }
+                heroX = 100;
+                heroY = 100; 
             }
-            if (heroY >= bottom)
-            {
-                heroY = bottom;
-            }
-
-            //TODO collisions checks 
-
-
             //calls the GameScreen_Paint method to draw the screen.
             Refresh();
+        }
+        private void rotationTimer_Tick(object sender, EventArgs e)
+        {
+            Graphics g = this.CreateGraphics();
+
+            if (upArrowDown == true)
+            {
+                if (rotationCount == 0)
+                {
+                    g.Clear(Color.LightSteelBlue);
+                    g.FillRectangle(heroBrush, heroX, heroY, heroSize, heroSize);
+                    g.FillRectangle(heroBrush, heroX + 20, heroY, heroSize, heroSize);
+                    g.FillRectangle(heroBrush, heroX - 20, heroY, heroSize, heroSize);
+                    g.FillRectangle(heroBrush, heroX, heroY - 20, heroSize, heroSize);
+                    Thread.Sleep(500);
+                    rotationCount++;
+                }
+
+                else if (rotationCount == 1)
+                {
+                    g.Clear(Color.LightSteelBlue);
+                    g.FillRectangle(heroBrush, heroX, heroY, heroSize, heroSize);
+                    g.FillRectangle(heroBrush, heroX + 20, heroY, heroSize, heroSize);
+                    g.FillRectangle(heroBrush, heroX, heroY + 20, heroSize, heroSize);
+                    g.FillRectangle(heroBrush, heroX, heroY - 20, heroSize, heroSize);
+                    Thread.Sleep(500);
+                    rotationCount++;
+                }
+
+                else if (rotationCount == 2)
+                {
+                    g.Clear(Color.LightSteelBlue);
+                    g.FillRectangle(heroBrush, heroX, heroY, heroSize, heroSize);
+                    g.FillRectangle(heroBrush, heroX + 20, heroY, heroSize, heroSize);
+                    g.FillRectangle(heroBrush, heroX, heroY + 20, heroSize, heroSize);
+                    g.FillRectangle(heroBrush, heroX - 20, heroY, heroSize, heroSize);
+                    Thread.Sleep(500);
+                    rotationCount++;
+                }
+
+                else if (rotationCount == 3)
+                {
+                    g.Clear(Color.LightSteelBlue);
+                    g.FillRectangle(heroBrush, heroX, heroY, heroSize, heroSize);
+                    g.FillRectangle(heroBrush, heroX - 20, heroY, heroSize, heroSize);
+                    g.FillRectangle(heroBrush, heroX, heroY + 20, heroSize, heroSize);
+                    g.FillRectangle(heroBrush, heroX, heroY - 20, heroSize, heroSize);
+                    Thread.Sleep(500);
+                    rotationCount = 0;
+                }
+            }
         }
 
         //Everything that is to be drawn on the screen should be done here

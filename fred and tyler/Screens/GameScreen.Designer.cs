@@ -31,12 +31,13 @@
             this.components = new System.ComponentModel.Container();
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
             this.gravityTimer = new System.Windows.Forms.Timer(this.components);
+            this.rotationTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // gameTimer
             // 
             this.gameTimer.Enabled = true;
-            this.gameTimer.Interval = 20;
+            this.gameTimer.Interval = 30;
             this.gameTimer.Tick += new System.EventHandler(this.gameTimer_Tick);
             // 
             // gravityTimer
@@ -44,6 +45,12 @@
             this.gravityTimer.Enabled = true;
             this.gravityTimer.Interval = 1000;
             this.gravityTimer.Tick += new System.EventHandler(this.gravityTimer_Tick);
+            // 
+            // rotationTimer
+            // 
+            this.rotationTimer.Enabled = true;
+            this.rotationTimer.Interval = 250;
+            this.rotationTimer.Tick += new System.EventHandler(this.rotationTimer_Tick);
             // 
             // GameScreen
             // 
@@ -53,6 +60,7 @@
             this.DoubleBuffered = true;
             this.Name = "GameScreen";
             this.Size = new System.Drawing.Size(300, 300);
+            this.Load += new System.EventHandler(this.GameScreen_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.GameScreen_Paint);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.GameScreen_KeyUp);
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.GameScreen_PreviewKeyDown);
@@ -64,5 +72,6 @@
 
         private System.Windows.Forms.Timer gameTimer;
         private System.Windows.Forms.Timer gravityTimer;
+        private System.Windows.Forms.Timer rotationTimer;
     }
 }

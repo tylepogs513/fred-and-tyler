@@ -73,7 +73,7 @@ namespace fred_and_tyler
             }
 
             //centres the control on the screen
-            ns.Location = new Point((f.Width - ns.Width) / 2, (f.Height - ns.Height) / 2);
+            ns.Location = new Point((f.Width - ns.Width) / 2, (f.Height / 2 - ns.Height / 2));
 
             f.Controls.Add(ns);
             ns.Focus();
