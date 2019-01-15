@@ -38,7 +38,7 @@ namespace fred_and_tyler
             heroSize = 20;
             heroSpeed = 20;
             bottom = 280;
-            rotationCount = 0;
+            rotationCount = 1;
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -139,7 +139,7 @@ namespace fred_and_tyler
         /// if the interval is set to 16 then it will run each 16ms or approx. 50 times
         /// per second
         /// </summary>
-        private void gameTimer_Tick(object sender, EventArgs e)
+        public void gameTimer_Tick(object sender, EventArgs e)
         {
             Rectangle bottomBlock = new Rectangle(0, 300, 320, 1);
             Rectangle playBlock = new Rectangle(heroX, heroY, heroSize, heroSize);
@@ -203,23 +203,13 @@ namespace fred_and_tyler
 
             if (upArrowDown == true)
             {
-                if (rotationCount == 0)
+                if (rotationCount == 1)
                 {
+                    rotLab.Text = "" + rotationCount;
                     g.Clear(Color.LightSteelBlue);
                     g.FillRectangle(heroBrush, heroX, heroY, heroSize, heroSize);
                     g.FillRectangle(heroBrush, heroX + 20, heroY, heroSize, heroSize);
                     g.FillRectangle(heroBrush, heroX - 20, heroY, heroSize, heroSize);
-                    g.FillRectangle(heroBrush, heroX, heroY - 20, heroSize, heroSize);
-                    Thread.Sleep(500);
-                    rotationCount++;
-                }
-
-                else if (rotationCount == 1)
-                {
-                    g.Clear(Color.LightSteelBlue);
-                    g.FillRectangle(heroBrush, heroX, heroY, heroSize, heroSize);
-                    g.FillRectangle(heroBrush, heroX + 20, heroY, heroSize, heroSize);
-                    g.FillRectangle(heroBrush, heroX, heroY + 20, heroSize, heroSize);
                     g.FillRectangle(heroBrush, heroX, heroY - 20, heroSize, heroSize);
                     Thread.Sleep(500);
                     rotationCount++;
@@ -227,6 +217,19 @@ namespace fred_and_tyler
 
                 else if (rotationCount == 2)
                 {
+                    rotLab.Text = "" + rotationCount;
+                    g.Clear(Color.LightSteelBlue);
+                    g.FillRectangle(heroBrush, heroX, heroY, heroSize, heroSize);
+                    g.FillRectangle(heroBrush, heroX + 20, heroY, heroSize, heroSize);
+                    g.FillRectangle(heroBrush, heroX, heroY + 20, heroSize, heroSize);
+                    g.FillRectangle(heroBrush, heroX, heroY - 20, heroSize, heroSize);
+                    Thread.Sleep(500);
+                    rotationCount++;
+                }
+
+                else if (rotationCount == 3)
+                {
+                    rotLab.Text = "" + rotationCount;
                     g.Clear(Color.LightSteelBlue);
                     g.FillRectangle(heroBrush, heroX, heroY, heroSize, heroSize);
                     g.FillRectangle(heroBrush, heroX + 20, heroY, heroSize, heroSize);
@@ -236,15 +239,16 @@ namespace fred_and_tyler
                     rotationCount++;
                 }
 
-                else if (rotationCount == 3)
+                else if (rotationCount == 4)
                 {
+                    rotLab.Text = "" + rotationCount;
                     g.Clear(Color.LightSteelBlue);
                     g.FillRectangle(heroBrush, heroX, heroY, heroSize, heroSize);
                     g.FillRectangle(heroBrush, heroX - 20, heroY, heroSize, heroSize);
                     g.FillRectangle(heroBrush, heroX, heroY + 20, heroSize, heroSize);
                     g.FillRectangle(heroBrush, heroX, heroY - 20, heroSize, heroSize);
                     Thread.Sleep(500);
-                    rotationCount = 0;
+                    rotationCount = 1;
                 }
             }
         }
