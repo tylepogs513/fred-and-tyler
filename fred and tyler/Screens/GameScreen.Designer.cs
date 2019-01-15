@@ -38,7 +38,6 @@
             // gameTimer
             // 
             this.gameTimer.Enabled = true;
-            this.gameTimer.Interval = 30;
             this.gameTimer.Tick += new System.EventHandler(this.gameTimer_Tick);
             // 
             // gravityTimer
@@ -50,7 +49,7 @@
             // rotationTimer
             // 
             this.rotationTimer.Enabled = true;
-            this.rotationTimer.Interval = 250;
+            this.rotationTimer.Interval = 150;
             this.rotationTimer.Tick += new System.EventHandler(this.rotationTimer_Tick);
             // 
             // rotLab

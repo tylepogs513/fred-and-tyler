@@ -132,6 +132,8 @@ namespace fred_and_tyler
                 heroX = 100;
                 heroY = 100;
             }
+
+            Refresh();
         }
 
         /// <summary>
@@ -151,7 +153,6 @@ namespace fred_and_tyler
             if (leftArrowDown == true)
             {
                 heroX = heroX - heroSpeed;
-                Thread.Sleep(100);
                 if (heroX <= 0)
                 {
                     heroX = 0;
@@ -160,7 +161,6 @@ namespace fred_and_tyler
             if (rightArrowDown == true)
             {
                 heroX = heroX + heroSpeed;
-                Thread.Sleep(100);
                 if (heroX >= 280)
                 {
                     heroX = 280;
@@ -169,7 +169,6 @@ namespace fred_and_tyler
             if (downArrowDown == true)
             {
                 heroY = bottom;
-                Thread.Sleep(100);
             }
                         
             if (heroY >= bottom)
@@ -197,7 +196,7 @@ namespace fred_and_tyler
             //calls the GameScreen_Paint method to draw the screen.
             Refresh();
         }
-        private void rotationTimer_Tick(object sender, EventArgs e)
+        public void rotationTimer_Tick(object sender, EventArgs e)
         {
             Graphics g = this.CreateGraphics();
 
@@ -205,59 +204,67 @@ namespace fred_and_tyler
             {
                 if (rotationCount == 1)
                 {
-                    rotLab.Text = "" + rotationCount;
-                    g.Clear(Color.LightSteelBlue);
-                    g.FillRectangle(heroBrush, heroX, heroY, heroSize, heroSize);
-                    g.FillRectangle(heroBrush, heroX + 20, heroY, heroSize, heroSize);
-                    g.FillRectangle(heroBrush, heroX - 20, heroY, heroSize, heroSize);
-                    g.FillRectangle(heroBrush, heroX, heroY - 20, heroSize, heroSize);
-                    Thread.Sleep(500);
                     rotationCount++;
                 }
 
                 else if (rotationCount == 2)
                 {
-                    rotLab.Text = "" + rotationCount;
-                    g.Clear(Color.LightSteelBlue);
-                    g.FillRectangle(heroBrush, heroX, heroY, heroSize, heroSize);
-                    g.FillRectangle(heroBrush, heroX + 20, heroY, heroSize, heroSize);
-                    g.FillRectangle(heroBrush, heroX, heroY + 20, heroSize, heroSize);
-                    g.FillRectangle(heroBrush, heroX, heroY - 20, heroSize, heroSize);
-                    Thread.Sleep(500);
                     rotationCount++;
                 }
 
                 else if (rotationCount == 3)
                 {
-                    rotLab.Text = "" + rotationCount;
-                    g.Clear(Color.LightSteelBlue);
-                    g.FillRectangle(heroBrush, heroX, heroY, heroSize, heroSize);
-                    g.FillRectangle(heroBrush, heroX + 20, heroY, heroSize, heroSize);
-                    g.FillRectangle(heroBrush, heroX, heroY + 20, heroSize, heroSize);
-                    g.FillRectangle(heroBrush, heroX - 20, heroY, heroSize, heroSize);
-                    Thread.Sleep(500);
                     rotationCount++;
                 }
 
                 else if (rotationCount == 4)
                 {
-                    rotLab.Text = "" + rotationCount;
-                    g.Clear(Color.LightSteelBlue);
-                    g.FillRectangle(heroBrush, heroX, heroY, heroSize, heroSize);
-                    g.FillRectangle(heroBrush, heroX - 20, heroY, heroSize, heroSize);
-                    g.FillRectangle(heroBrush, heroX, heroY + 20, heroSize, heroSize);
-                    g.FillRectangle(heroBrush, heroX, heroY - 20, heroSize, heroSize);
-                    Thread.Sleep(500);
                     rotationCount = 1;
                 }
             }
+                Refresh();
         }
 
         //Everything that is to be drawn on the screen should be done here
-        private void GameScreen_Paint(object sender, PaintEventArgs e)
+        public void GameScreen_Paint(object sender, PaintEventArgs e)
         {
             //draw rectangle to screen
-            e.Graphics.FillRectangle(heroBrush, heroX, heroY, heroSize, heroSize);
+
+            if (rotationCount == 1)
+            {
+                rotLab.Text = "" + rotationCount;
+                e.Graphics.FillRectangle(heroBrush, heroX, heroY, heroSize, heroSize);
+                e.Graphics.FillRectangle(heroBrush, heroX + 20, heroY, heroSize, heroSize);
+                e.Graphics.FillRectangle(heroBrush, heroX - 20, heroY, heroSize, heroSize);
+                e.Graphics.FillRectangle(heroBrush, heroX, heroY - 20, heroSize, heroSize);
+            }
+
+            else if (rotationCount == 2)
+            {
+                rotLab.Text = "" + rotationCount;
+                e.Graphics.FillRectangle(heroBrush, heroX, heroY, heroSize, heroSize);
+                e.Graphics.FillRectangle(heroBrush, heroX + 20, heroY, heroSize, heroSize);
+                e.Graphics.FillRectangle(heroBrush, heroX, heroY + 20, heroSize, heroSize);
+                e.Graphics.FillRectangle(heroBrush, heroX, heroY - 20, heroSize, heroSize);
+            }
+
+            else if (rotationCount == 3)
+            {
+                rotLab.Text = "" + rotationCount;
+                e.Graphics.FillRectangle(heroBrush, heroX, heroY, heroSize, heroSize);
+                e.Graphics.FillRectangle(heroBrush, heroX + 20, heroY, heroSize, heroSize);
+                e.Graphics.FillRectangle(heroBrush, heroX, heroY + 20, heroSize, heroSize);
+                e.Graphics.FillRectangle(heroBrush, heroX - 20, heroY, heroSize, heroSize);
+            }
+
+            else if (rotationCount == 4)
+            {
+                rotLab.Text = "" + rotationCount;
+                e.Graphics.FillRectangle(heroBrush, heroX, heroY, heroSize, heroSize);
+                e.Graphics.FillRectangle(heroBrush, heroX - 20, heroY, heroSize, heroSize);
+                e.Graphics.FillRectangle(heroBrush, heroX, heroY + 20, heroSize, heroSize);
+                e.Graphics.FillRectangle(heroBrush, heroX, heroY - 20, heroSize, heroSize);
+            }
         }
     }
 }
