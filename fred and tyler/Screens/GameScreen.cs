@@ -17,12 +17,20 @@ namespace fred_and_tyler
         {
 
         }
-
-
+        
         //TODO create your global game variables here
-        int heroX, heroY, heroSize, heroSpeed, bottom, rotationCount;
-        SolidBrush heroBrush = new SolidBrush(Color.Red);
-
+        int heroX, heroY, heroSize, heroSpeed, bottom, rotationCount, startX, startY;
+        SolidBrush lBrush = new SolidBrush(Color.Red);
+        SolidBrush jBrush = new SolidBrush(Color.Blue);
+        SolidBrush sBrush = new SolidBrush(Color.Black);
+        SolidBrush zBrush = new SolidBrush(Color.Red);
+        SolidBrush oBrush = new SolidBrush(Color.Blue);
+        SolidBrush tBrush = new SolidBrush(Color.Black);
+        Pen outlinePen = new Pen(Color.White);
+        Pen outlinePenWhite = new Pen(Color.White);
+        Random randGen = new Random(); 
+        int shape;
+        
         public GameScreen()
         {
             InitializeComponent();
@@ -33,6 +41,8 @@ namespace fred_and_tyler
         {
             //TODO - setup all your initial game values here. Use this method
             // each time you restart your game to reset all values.
+            startX = 60;
+            startY = 120;
             heroX = 100;
             heroY = 100;
             heroSize = 20;
@@ -115,8 +125,6 @@ namespace fred_and_tyler
         private void gravityTimer_Tick(object sender, EventArgs e)
         {
             Graphics g = this.CreateGraphics();
-            SolidBrush blueBrush = new SolidBrush(Color.Blue);
-            g.FillRectangle(blueBrush, 0, 299, 320, 10);
             int counter = 0;
 
             if (counter <= 10 || heroY <= bottom)
@@ -127,10 +135,9 @@ namespace fred_and_tyler
 
             if (heroY >= bottom)
             {
-                heroY = bottom;
-                g.FillRectangle(heroBrush, heroX, heroY, heroSize, heroSize);
-                heroX = 100;
-                heroY = 100;
+                shape = randGen.Next(1, 6);
+                heroX = startX;
+                heroY = startY;
             }
 
             Refresh();
@@ -174,9 +181,8 @@ namespace fred_and_tyler
             if (heroY >= bottom)
             {
                 heroY = bottom;
-                g.FillRectangle(heroBrush, heroX, heroY, heroSize, heroSize);
-                heroX = 100;
-                heroY = 100;
+                heroX = startX;
+                heroY = startY;
             }
 
             //TODO collisions checks 
@@ -190,8 +196,8 @@ namespace fred_and_tyler
                 {
                     heroSpeed = 0;
                 }
-                heroX = 100;
-                heroY = 100; 
+                shape = randGen.Next(1, 6);
+                rotationCount = 0;
             }
             //calls the GameScreen_Paint method to draw the screen.
             Refresh();
@@ -228,42 +234,314 @@ namespace fred_and_tyler
         //Everything that is to be drawn on the screen should be done here
         public void GameScreen_Paint(object sender, PaintEventArgs e)
         {
+            testLab.Text = shape + "";
             //draw rectangle to screen
-
-            if (rotationCount == 1)
+            switch (shape)
             {
-                rotLab.Text = "" + rotationCount;
-                e.Graphics.FillRectangle(heroBrush, heroX, heroY, heroSize, heroSize);
-                e.Graphics.FillRectangle(heroBrush, heroX + 20, heroY, heroSize, heroSize);
-                e.Graphics.FillRectangle(heroBrush, heroX - 20, heroY, heroSize, heroSize);
-                e.Graphics.FillRectangle(heroBrush, heroX, heroY - 20, heroSize, heroSize);
-            }
+                case 0:
+                    if (rotationCount == 1)//T
+                    {
+                        e.Graphics.FillRectangle(tBrush, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(tBrush, heroX + 20, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(tBrush, heroX - 20, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(tBrush, heroX, heroY - 20, heroSize, heroSize);
 
-            else if (rotationCount == 2)
-            {
-                rotLab.Text = "" + rotationCount;
-                e.Graphics.FillRectangle(heroBrush, heroX, heroY, heroSize, heroSize);
-                e.Graphics.FillRectangle(heroBrush, heroX + 20, heroY, heroSize, heroSize);
-                e.Graphics.FillRectangle(heroBrush, heroX, heroY + 20, heroSize, heroSize);
-                e.Graphics.FillRectangle(heroBrush, heroX, heroY - 20, heroSize, heroSize);
-            }
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX + 20, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX - 20, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY - 20, heroSize, heroSize);
+                    }
 
-            else if (rotationCount == 3)
-            {
-                rotLab.Text = "" + rotationCount;
-                e.Graphics.FillRectangle(heroBrush, heroX, heroY, heroSize, heroSize);
-                e.Graphics.FillRectangle(heroBrush, heroX + 20, heroY, heroSize, heroSize);
-                e.Graphics.FillRectangle(heroBrush, heroX, heroY + 20, heroSize, heroSize);
-                e.Graphics.FillRectangle(heroBrush, heroX - 20, heroY, heroSize, heroSize);
-            }
+                    else if (rotationCount == 2)
+                    {
+                        e.Graphics.FillRectangle(tBrush, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(tBrush, heroX + 20, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(tBrush, heroX, heroY + 20, heroSize, heroSize);
+                        e.Graphics.FillRectangle(tBrush, heroX, heroY - 20, heroSize, heroSize);
 
-            else if (rotationCount == 4)
-            {
-                rotLab.Text = "" + rotationCount;
-                e.Graphics.FillRectangle(heroBrush, heroX, heroY, heroSize, heroSize);
-                e.Graphics.FillRectangle(heroBrush, heroX - 20, heroY, heroSize, heroSize);
-                e.Graphics.FillRectangle(heroBrush, heroX, heroY + 20, heroSize, heroSize);
-                e.Graphics.FillRectangle(heroBrush, heroX, heroY - 20, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX + 20, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY + 20, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY - 20, heroSize, heroSize);
+                    }
+
+                    else if (rotationCount == 3)
+                    {
+                        e.Graphics.FillRectangle(tBrush, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(tBrush, heroX + 20, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(tBrush, heroX, heroY + 20, heroSize, heroSize);
+                        e.Graphics.FillRectangle(tBrush, heroX - 20, heroY, heroSize, heroSize);
+
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX + 20, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY + 20, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX - 20, heroY, heroSize, heroSize);
+                    }
+
+                    else if (rotationCount == 4)
+                    {
+                        e.Graphics.FillRectangle(tBrush, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(tBrush, heroX - 20, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(tBrush, heroX, heroY + 20, heroSize, heroSize);
+                        e.Graphics.FillRectangle(tBrush, heroX, heroY - 20, heroSize, heroSize);
+
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX - 20, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY + 20, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY - 20, heroSize, heroSize);
+                    }
+                    break;
+                case 1://Z
+                    if (rotationCount == 1)
+                    {
+                        e.Graphics.FillRectangle(zBrush, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(zBrush, heroX - 20, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(zBrush, heroX, heroY - 20, heroSize, heroSize);
+                        e.Graphics.FillRectangle(zBrush, heroX + 20, heroY - 20, heroSize, heroSize);
+
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX - 20, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY - 20, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX + 20, heroY - 20, heroSize, heroSize);
+
+                    }
+                    else if (rotationCount == 2)
+                    {
+                        e.Graphics.FillRectangle(zBrush, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(zBrush, heroX, heroY + 20, heroSize, heroSize);
+                        e.Graphics.FillRectangle(zBrush, heroX - 20, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(zBrush, heroX - 20, heroY - 20, heroSize, heroSize);
+                        
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY + 20, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX - 20, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX - 20, heroY - 20, heroSize, heroSize);
+                    }
+                    else if (rotationCount == 3)
+                    {
+                        e.Graphics.FillRectangle(zBrush, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(zBrush, heroX - 20, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(zBrush, heroX, heroY - 20, heroSize, heroSize);
+                        e.Graphics.FillRectangle(zBrush, heroX + 20, heroY - 20, heroSize, heroSize);
+
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX - 20, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY - 20, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX + 20, heroY - 20, heroSize, heroSize);
+                    }
+                    else if (rotationCount == 4)
+                    {
+                        e.Graphics.FillRectangle(zBrush, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(zBrush, heroX, heroY + 20, heroSize, heroSize);
+                        e.Graphics.FillRectangle(zBrush, heroX - 20, heroY - 20, heroSize, heroSize);
+                        e.Graphics.FillRectangle(zBrush, heroX - 20, heroY, heroSize, heroSize);
+                        
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY + 20, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX - 20, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX - 20, heroY - 20, heroSize, heroSize);
+                    }
+                    break;
+                case 2://S
+                    if (rotationCount == 1) 
+                    {
+                        e.Graphics.FillRectangle(sBrush, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(sBrush, heroX + 20, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(sBrush, heroX, heroY - 20, heroSize, heroSize);
+                        e.Graphics.FillRectangle(sBrush, heroX - 20, heroY - 20, heroSize, heroSize);
+
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX + 20, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY - 20, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX - 20, heroY - 20, heroSize, heroSize);
+                    }
+                    else if (rotationCount == 2)
+                    {
+                        e.Graphics.FillRectangle(sBrush, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(sBrush, heroX, heroY - 20, heroSize, heroSize);
+                        e.Graphics.FillRectangle(sBrush, heroX - 20, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(sBrush, heroX - 20, heroY + 20, heroSize, heroSize);
+
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY - 20, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX - 20, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX - 20, heroY + 20, heroSize, heroSize);
+                    }
+                    else if (rotationCount == 3)
+                    {
+                        e.Graphics.FillRectangle(sBrush, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(sBrush, heroX + 20, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(sBrush, heroX, heroY - 20, heroSize, heroSize);
+                        e.Graphics.FillRectangle(sBrush, heroX - 20, heroY - 20, heroSize, heroSize);
+
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX + 20, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY - 20, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX - 20, heroY - 20, heroSize, heroSize);
+                    }
+                    else if (rotationCount == 4)
+                    {
+                        e.Graphics.FillRectangle(sBrush, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(sBrush, heroX, heroY - 20, heroSize, heroSize);
+                        e.Graphics.FillRectangle(sBrush, heroX - 20, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(sBrush, heroX - 20, heroY + 20, heroSize, heroSize);
+                        
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY - 20, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX - 20, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX - 20, heroY + 20, heroSize, heroSize);
+                    }
+                    break;
+                case 3://L
+                    if (rotationCount == 1)
+                    {
+                        e.Graphics.FillRectangle(lBrush, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(lBrush, heroX + 20, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(lBrush, heroX, heroY - 20, heroSize, heroSize);
+                        e.Graphics.FillRectangle(lBrush, heroX, heroY - 40, heroSize, heroSize);
+
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX + 20, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY - 20, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY - 40, heroSize, heroSize);
+                    }
+                    else if (rotationCount == 2)
+                    {
+                        e.Graphics.FillRectangle(lBrush, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(lBrush, heroX, heroY + 20, heroSize, heroSize);
+                        e.Graphics.FillRectangle(lBrush, heroX + 20, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(lBrush, heroX + 40, heroY, heroSize, heroSize);
+
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY + 20, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX + 20, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX + 40, heroY, heroSize, heroSize);
+                    }
+                    else if (rotationCount == 3)
+                    {
+                        e.Graphics.FillRectangle(lBrush, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(lBrush, heroX - 20, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(lBrush, heroX, heroY + 20, heroSize, heroSize);
+                        e.Graphics.FillRectangle(lBrush, heroX, heroY + 40, heroSize, heroSize);
+
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX - 20, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY + 20, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY + 40, heroSize, heroSize);
+                    }
+                    else if (rotationCount == 4)
+                    {
+                        e.Graphics.FillRectangle(lBrush, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(lBrush, heroX, heroY - 20, heroSize, heroSize);
+                        e.Graphics.FillRectangle(lBrush, heroX - 20, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(lBrush, heroX - 40, heroY, heroSize, heroSize);
+
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX, heroY - 20, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX - 20, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePenWhite, heroX - 40, heroY, heroSize, heroSize);
+                    }
+                    break;
+                case 4://J
+                    if (rotationCount == 1) 
+                    {
+                        e.Graphics.FillRectangle(jBrush, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(jBrush, heroX - 20, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(jBrush, heroX, heroY - 20, heroSize, heroSize);
+                        e.Graphics.FillRectangle(jBrush, heroX, heroY - 40, heroSize, heroSize);
+
+                        e.Graphics.DrawRectangle(outlinePen, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePen, heroX - 20, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePen, heroX, heroY - 20, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePen, heroX, heroY - 40, heroSize, heroSize);
+                    }
+                    else if (rotationCount == 2)
+                    {
+                        e.Graphics.FillRectangle(jBrush, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(jBrush, heroX, heroY - 20, heroSize, heroSize);
+                        e.Graphics.FillRectangle(jBrush, heroX + 20, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(jBrush, heroX + 40, heroY, heroSize, heroSize);
+                        
+                        e.Graphics.DrawRectangle(outlinePen, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePen, heroX, heroY - 20, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePen, heroX + 20, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePen, heroX + 40, heroY, heroSize, heroSize);
+                    }
+                    else if (rotationCount == 3)
+                    {
+                        e.Graphics.FillRectangle(jBrush, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(jBrush, heroX + 20, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(jBrush, heroX, heroY + 20, heroSize, heroSize);
+                        e.Graphics.FillRectangle(jBrush, heroX, heroY + 40, heroSize, heroSize);
+                        
+                        e.Graphics.DrawRectangle(outlinePen, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePen, heroX + 20, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePen, heroX, heroY + 20, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePen, heroX, heroY + 40, heroSize, heroSize);
+                    }
+                    else if (rotationCount == 4)
+                    {
+                       e.Graphics.FillRectangle(jBrush, heroX, heroY, heroSize, heroSize);
+                       e.Graphics.FillRectangle(jBrush, heroX, heroY + 20, heroSize, heroSize);
+                       e.Graphics.FillRectangle(jBrush, heroX - 20, heroY , heroSize, heroSize);
+                       e.Graphics.FillRectangle(jBrush, heroX - 40, heroY , heroSize, heroSize);
+                                                            
+                       e.Graphics.DrawRectangle(outlinePen, heroX, heroY, heroSize, heroSize);
+                       e.Graphics.DrawRectangle(outlinePen, heroX, heroY + 20, heroSize, heroSize);
+                       e.Graphics.DrawRectangle(outlinePen, heroX - 20, heroY, heroSize, heroSize);
+                       e.Graphics.DrawRectangle(outlinePen, heroX - 40, heroY, heroSize, heroSize);
+                    }
+                    break;
+                case 5://O
+                    if (rotationCount == 1) 
+                    {
+                        e.Graphics.FillRectangle(oBrush, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(oBrush, heroX + 20, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(oBrush, heroX, heroY - 20, heroSize, heroSize);
+                        e.Graphics.FillRectangle(oBrush, heroX + 20, heroY - 20, heroSize, heroSize);
+
+                        e.Graphics.DrawRectangle(outlinePen, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePen, heroX + 20, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePen, heroX, heroY - 20, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePen, heroX + 20, heroY - 20, heroSize, heroSize);
+                    }
+                    else if (rotationCount == 2)
+                    {
+                        e.Graphics.FillRectangle(oBrush, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(oBrush, heroX + 20, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(oBrush, heroX, heroY - 20, heroSize, heroSize);
+                        e.Graphics.FillRectangle(oBrush, heroX + 20, heroY - 20, heroSize, heroSize);
+
+                        e.Graphics.DrawRectangle(outlinePen, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePen, heroX + 20, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePen, heroX, heroY - 20, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePen, heroX + 20, heroY - 20, heroSize, heroSize);
+                    }
+                    else if (rotationCount == 3)
+                    {
+                        e.Graphics.FillRectangle(oBrush, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(oBrush, heroX + 20, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(oBrush, heroX, heroY - 20, heroSize, heroSize);
+                        e.Graphics.FillRectangle(oBrush, heroX + 20, heroY - 20, heroSize, heroSize);
+
+                        e.Graphics.DrawRectangle(outlinePen, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePen, heroX + 20, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePen, heroX, heroY - 20, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePen, heroX + 20, heroY - 20, heroSize, heroSize);
+                    }
+                    else if (rotationCount == 4)
+                    {
+                        e.Graphics.FillRectangle(oBrush, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(oBrush, heroX + 20, heroY, heroSize, heroSize);
+                        e.Graphics.FillRectangle(oBrush, heroX, heroY - 20, heroSize, heroSize);
+                        e.Graphics.FillRectangle(oBrush, heroX + 20, heroY - 20, heroSize, heroSize);
+
+                        e.Graphics.DrawRectangle(outlinePen, heroX, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePen, heroX + 20, heroY, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePen, heroX, heroY - 20, heroSize, heroSize);
+                        e.Graphics.DrawRectangle(outlinePen, heroX + 20, heroY - 20, heroSize, heroSize);
+                    }
+                    break;
             }
         }
     }
