@@ -82,7 +82,7 @@
             this.scoresButton.Name = "scoresButton";
             this.scoresButton.Size = new System.Drawing.Size(120, 39);
             this.scoresButton.TabIndex = 2;
-            this.scoresButton.Text = "High Scores";
+            this.scoresButton.Text = "How To Play";
             this.scoresButton.UseVisualStyleBackColor = false;
             this.scoresButton.Click += new System.EventHandler(this.scoresButton_Click);
             this.scoresButton.Enter += new System.EventHandler(this.button_Enter);
