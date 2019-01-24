@@ -29,20 +29,20 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.label1 = new System.Windows.Forms.Label();
+            this.creatorsLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // label1
+            // creatorsLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Black;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F);
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(225, 439);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(119, 7);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "By Fred Hammerl and Tyler Pogson";
+            this.creatorsLabel.AutoSize = true;
+            this.creatorsLabel.BackColor = System.Drawing.Color.Black;
+            this.creatorsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F);
+            this.creatorsLabel.ForeColor = System.Drawing.Color.White;
+            this.creatorsLabel.Location = new System.Drawing.Point(225, 439);
+            this.creatorsLabel.Name = "creatorsLabel";
+            this.creatorsLabel.Size = new System.Drawing.Size(119, 7);
+            this.creatorsLabel.TabIndex = 5;
+            this.creatorsLabel.Text = "By Fred Hammerl and Tyler Pogson";
             // 
             // MainForm
             // 
@@ -50,12 +50,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(560, 455);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.creatorsLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "P.A.L.N. Faller";
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.MainForm_Paint);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -63,7 +64,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label creatorsLabel;
     }
 }
 

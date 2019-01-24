@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
-using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -54,7 +54,8 @@ namespace fred_and_tyler
 
         private void MenuScreen_Load(object sender, EventArgs e)
         {
-           
+            SoundPlayer backSound = new SoundPlayer(Properties.Resources.tetrisBackground);
+            backSound.Stop();
         }
 
         private void MenuScreen_Paint(object sender, PaintEventArgs e)

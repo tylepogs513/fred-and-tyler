@@ -32,7 +32,7 @@
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
             this.gravityTimer = new System.Windows.Forms.Timer(this.components);
             this.rotationTimer = new System.Windows.Forms.Timer(this.components);
-            this.testLab = new System.Windows.Forms.Label();
+            this.soundTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // gameTimer
@@ -52,21 +52,17 @@
             this.rotationTimer.Interval = 150;
             this.rotationTimer.Tick += new System.EventHandler(this.rotationTimer_Tick);
             // 
-            // testLab
+            // soundTimer
             // 
-            this.testLab.AutoSize = true;
-            this.testLab.Location = new System.Drawing.Point(249, 9);
-            this.testLab.Name = "testLab";
-            this.testLab.Size = new System.Drawing.Size(42, 13);
-            this.testLab.TabIndex = 0;
-            this.testLab.Text = "testLab";
+            this.soundTimer.Enabled = true;
+            this.soundTimer.Interval = 77500;
+            this.soundTimer.Tick += new System.EventHandler(this.soundTimer_Tick);
             // 
             // GameScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Crimson;
-            this.Controls.Add(this.testLab);
             this.DoubleBuffered = true;
             this.Name = "GameScreen";
             this.Size = new System.Drawing.Size(300, 300);
@@ -75,7 +71,6 @@
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.GameScreen_KeyUp);
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.GameScreen_PreviewKeyDown);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -84,6 +79,6 @@
         private System.Windows.Forms.Timer gameTimer;
         private System.Windows.Forms.Timer gravityTimer;
         private System.Windows.Forms.Timer rotationTimer;
-        private System.Windows.Forms.Label testLab;
+        private System.Windows.Forms.Timer soundTimer;
     }
 }

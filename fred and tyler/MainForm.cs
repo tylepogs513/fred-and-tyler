@@ -78,5 +78,12 @@ namespace fred_and_tyler
             f.Controls.Add(ns);
             ns.Focus();
         }
+        private void MainForm_Paint(object sender, PaintEventArgs e)
+        {
+            Font impact = new Font("Impact", 20);
+            SolidBrush white = new SolidBrush(Color.White);
+
+            e.Graphics.DrawString("BETA", impact, white, (this.Width / 2) - 34, 30);
+        }
     }
 }

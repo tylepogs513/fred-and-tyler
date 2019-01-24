@@ -148,5 +148,14 @@
   <ItemGroup>
     <None Include="Resources\yellow_50x50.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tetrisBottom.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Original Tetris theme %28Tetris Soundtrack%29.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tetrisBackground.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
