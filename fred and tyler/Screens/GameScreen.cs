@@ -13,30 +13,18 @@ namespace fred_and_tyler
 
         //player2 button control keys - DO NOT CHANGE
         Boolean aDown, sDown, dDown, wDown, cDown, vDown, xDown, zDown;
-
-        private void GameScreen_Load(object sender, EventArgs e)
-        {
-            backSound.Play();
-        }
-        
+ 
         //TODO create your global game variables here
         int heroX, heroY, heroSize, heroSpeed, bottom, rotationCount;
         SolidBrush lBrush = new SolidBrush(Color.Red);
-
-        private void soundTimer_Tick(object sender, EventArgs e)
-        {
-            backSound.Play();
-        }
-
         SolidBrush jBrush = new SolidBrush(Color.Blue);
         SolidBrush sBrush = new SolidBrush(Color.Black);
         SolidBrush zBrush = new SolidBrush(Color.Red);
         SolidBrush oBrush = new SolidBrush(Color.Blue);
         SolidBrush tBrush = new SolidBrush(Color.Black);
-        Pen outlinePen = new Pen(Color.White);
+        Pen outlinePen = new Pen(Color.White);      
         Pen outlinePenWhite = new Pen(Color.White);
         Random randGen = new Random();
-        SoundPlayer backSound = new SoundPlayer(Properties.Resources.tetrisBackground);
         int shape;
         
         public GameScreen()

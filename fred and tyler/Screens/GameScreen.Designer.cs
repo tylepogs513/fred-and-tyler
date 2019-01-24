@@ -32,7 +32,6 @@
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
             this.gravityTimer = new System.Windows.Forms.Timer(this.components);
             this.rotationTimer = new System.Windows.Forms.Timer(this.components);
-            this.soundTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // gameTimer
@@ -52,12 +51,6 @@
             this.rotationTimer.Interval = 150;
             this.rotationTimer.Tick += new System.EventHandler(this.rotationTimer_Tick);
             // 
-            // soundTimer
-            // 
-            this.soundTimer.Enabled = true;
-            this.soundTimer.Interval = 77500;
-            this.soundTimer.Tick += new System.EventHandler(this.soundTimer_Tick);
-            // 
             // GameScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -66,7 +59,6 @@
             this.DoubleBuffered = true;
             this.Name = "GameScreen";
             this.Size = new System.Drawing.Size(300, 300);
-            this.Load += new System.EventHandler(this.GameScreen_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.GameScreen_Paint);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.GameScreen_KeyUp);
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.GameScreen_PreviewKeyDown);
@@ -79,6 +71,5 @@
         private System.Windows.Forms.Timer gameTimer;
         private System.Windows.Forms.Timer gravityTimer;
         private System.Windows.Forms.Timer rotationTimer;
-        private System.Windows.Forms.Timer soundTimer;
     }
 }

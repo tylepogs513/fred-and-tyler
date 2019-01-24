@@ -91,7 +91,6 @@
             // 
             this.titleTimer.Enabled = true;
             this.titleTimer.Interval = 150;
-            this.titleTimer.Tick += new System.EventHandler(this.titleTimer_Tick);
             // 
             // MenuScreen
             // 
@@ -103,7 +102,6 @@
             this.Controls.Add(this.playButton);
             this.Name = "MenuScreen";
             this.Size = new System.Drawing.Size(300, 300);
-            this.Load += new System.EventHandler(this.MenuScreen_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.MenuScreen_Paint);
             this.ResumeLayout(false);
 

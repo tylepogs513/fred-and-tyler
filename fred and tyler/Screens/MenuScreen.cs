@@ -47,17 +47,6 @@ namespace fred_and_tyler
             btn.BackColor = Color.Gold;
         }
 
-        private void titleTimer_Tick(object sender, EventArgs e)
-        {
-
-        }
-
-        private void MenuScreen_Load(object sender, EventArgs e)
-        {
-            SoundPlayer backSound = new SoundPlayer(Properties.Resources.tetrisBackground);
-            backSound.Stop();
-        }
-
         private void MenuScreen_Paint(object sender, PaintEventArgs e)
         {
             SolidBrush drawRed = new SolidBrush(Color.Red);

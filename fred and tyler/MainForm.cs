@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -84,6 +84,17 @@ namespace fred_and_tyler
             SolidBrush white = new SolidBrush(Color.White);
 
             e.Graphics.DrawString("BETA", impact, white, (this.Width / 2) - 34, 30);
+        }
+        SoundPlayer backSound = new SoundPlayer(Properties.Resources.tetrisBackground);
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            backSound.Play();
+        }
+
+        private void backSoundTimer_Tick(object sender, EventArgs e)
+        {
+            backSound.Play();
         }
     }
 }

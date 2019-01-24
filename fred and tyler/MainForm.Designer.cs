@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.creatorsLabel = new System.Windows.Forms.Label();
+            this.backSoundTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // creatorsLabel
@@ -44,6 +46,12 @@
             this.creatorsLabel.TabIndex = 5;
             this.creatorsLabel.Text = "By Fred Hammerl and Tyler Pogson";
             // 
+            // backSoundTimer
+            // 
+            this.backSoundTimer.Enabled = true;
+            this.backSoundTimer.Interval = 77500;
+            this.backSoundTimer.Tick += new System.EventHandler(this.backSoundTimer_Tick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -56,6 +64,7 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "P.A.L.N. Faller";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.MainForm_Paint);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -65,6 +74,7 @@
         #endregion
 
         private System.Windows.Forms.Label creatorsLabel;
+        private System.Windows.Forms.Timer backSoundTimer;
     }
 }
 
